@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+public class Rotate{
+    public static ArrayList<String> possibilities = new ArrayList<String>();
+	public static void main(String[] args){
+    	Scanner scan = new Scanner(System.in);
+      	String s = scan.nextLine();
+      	int no = scan.nextInt();
+      	char rotate;
+      	int a,d;
+      	String afterrotate;
+      	String concat="";
+      	
+      	for(int i=0;i<no;i++){
+        	rotate = scan.next().charAt(0);
+          	a = scan.nextInt();
+      	if(rotate=='L'){
+          	d = a;
+          	d = d % s.length();
+      		afterrotate = s.substring(d) + s.substring(0, d);
+        }
+        else{
+          	d = s.length()-a;
+          	d = d % s.length();
+      		afterrotate = s.substring(d) + s.substring(0, d);
+        }
+        concat = concat + afterrotate.charAt(0);
+      }
+        System.out.println(concat);
+        display("",concat);
+        int get=0;
+        for(String f:possibilities){
+      if(s.indexOf(f) != -1){
+      	get=0;
+      	break;
+      }
+      else{
+        get++;
+      }
+        }
+        if(get==0)
+        System.out.println("YES");
+        else
+        System.out.println("NO");
+        
+    }
+    static void display(String s1, String s2)
+    {
+        if(s2.length()<=1)
+        {
+            possibilities.add(s1+s2);
+            return;
+        }
+        else
+        {
+            for(int i=0; i<s2.length(); i++)
+            {
+                String x = s2.substring(i, i+1);
+                String y = s2.substring(0, i);
+                String z = s2.substring(i+1);
+                display(s1+x, y+z);
+            }
+        }
+    }
+}
